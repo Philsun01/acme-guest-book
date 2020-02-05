@@ -48,8 +48,16 @@ const addGuest = (guest)=> {
 
 const server = http.createServer((req, res)=> {
     if(req.url === '/') {
-        res.write("Hello World");
-        res.end();
+        if(req.method === 'GET'){
+            readFile('./index.html')
+            .then(data => {
+                res.write(data);
+                res.end();
+            })
+            .catch( ex =>  res.write(ex.toString()))
+        }
+        //res.write("Hello World");
+        //res.end();
     } else {
         res.write('nothing');
         res.end();
