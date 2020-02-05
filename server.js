@@ -58,8 +58,15 @@ const server = http.createServer((req, res)=> {
         }
         //res.write("Hello World");
         //res.end();
+    } else if(req.url === '/api/guests'){
+        readFile('./guests.json')
+            .then(data => {
+                res.write(data);
+                res.end();
+            })
+            .catch( ex =>  res.write(ex.toString()))
+        
     } else {
-        res.write('nothing');
         res.end();
     }
 });
