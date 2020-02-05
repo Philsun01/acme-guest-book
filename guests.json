@@ -1,11 +1,30 @@
- [
-     {
-         "id": 1,
-         "name": "lucy"
-     },
-     {
-        "id": 2,
-        "name": "lyle"
-    }
-
- ]
+[
+  {
+    "guest": "matthew",
+    "id": 1
+  },
+  {
+    "guest": "chief",
+    "id": 2
+  },
+  {
+    "guest": "chi",
+    "id": 3
+  },
+  {
+    "guest": "darrington",
+    "id": 4
+  },
+  {
+    "guest": "merlin",
+    "id": 5
+  },
+  {
+    "guest": "merlin",
+    "id": 6
+  },
+  {
+    "guest": "monster",
+    "id": 7
+  }
+]

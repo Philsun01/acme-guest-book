@@ -1,16 +1,59 @@
 <html>
+
   <head>
+    <meta charset="utf-8" />
     <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js'></script>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
   </head>
+
   <body>
-    <h1>My React App</h1>
+    <h2>My React App</h2>
     <div id='root'></div>
     <script type='text/babel'>
+      const { useState, useEffect } = React;
 
-      ReactDOM.render(<hr />, document.querySelector('#root'));
+      const App = () => {
+        const [guests, setGuests] = useState([]);
+        const [userName, setUserName] = useState('');
+
+
+        useEffect(() => {
+          axios.get('/api/guests')
+            .then(response => { setGuests(response.data) })
+        }, []);
+
+
+        const postGuest = () => {
+          axios.post('/api/guests', { guest: userName })
+            .then(response => setGuests([...guests, response.data]))
+        }
+
+        return (
+          <div className="container">
+            <form onSubmit={ev => ev.preventDefault()}>
+              <h2>Add Guests</h2>
+              <input type="text" value={userName} onChange={ev => setUserName(ev.target.value)} />
+              <button onClick={() => postGuest()}>Submit New Guest</button>
+            </form>
+            <div className="guest-list">
+              <h2>Guest List</h2>
+              <ul>
+                {guests.map((guest, idx) => {
+                  return (
+                    <li key={idx}>{guest.guest}</li>
+                  )
+                })}
+              </ul>
+            </div>
+          </div>
+        )
+      }
+
+      ReactDOM.render(<App />, document.querySelector('#root'));
     </script>
   </body>
+
 </html>
